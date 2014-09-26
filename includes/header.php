@@ -20,7 +20,7 @@
 			<?php
 				session_start();
 				// Display the Username capitalized and remove the email part
-				if ($_SESSION['user'] != "") {echo "<li><a href='#'>" . ucfirst(substr($_SESSION['user'], 0, strpos($_SESSION['user'], "@"))) . "</a></li>";}
+				if ($_SESSION['user'] != "") {echo "<li><a href='#'>" . ucfirst(substr($_SESSION['user'], 0, strpos($_SESSION['user'], "@"))) . "</a></li><a href='user_logout_process.php'><img src='images/icons/user-logout.png' border=0/></a>";}
 				else {echo "<li><a href='user_login.php'>Login</a></li>";}
 			?>
 			</ul>
