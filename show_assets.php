@@ -29,6 +29,13 @@ include "includes/db_connection.php";
 				// Create an array of all the tickets
 				$assets = $db->get_results("SELECT * FROM assets ORDER BY intID ASC LIMIT 100");
 
+				// Create a new array if a filter is requested
+				if ($_GET["serial"] != NULL)
+				{
+					$assets = $db->get_results("SELECT * FROM assets WHERE strSerial = '" . $_GET["serial"] . "' ORDER BY intID ASC LIMIT 100");
+				}
+
+				
 				?>
 				
 				</p>
@@ -110,7 +117,7 @@ include "includes/db_connection.php";
 						}
 						
 						// Display serial number
-						echo "<td><div align='center'>" . $asset->strSerial . "</div> </td>";					
+						echo "<td><div align='center'><a href='show_assets.php?serial=" . $asset->strSerial . "'>" . $asset->strSerial . "</a></div> </td>";					
 						
 						echo "</tr>";
 					}
