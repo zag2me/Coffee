@@ -34,6 +34,12 @@ include "includes/db_connection.php";
 				{
 					$assets = $db->get_results("SELECT * FROM assets WHERE strSerial = '" . $_GET["serial"] . "' ORDER BY intID ASC LIMIT 100");
 				}
+				
+				// Create a new array if a filter is requested
+				if ($_GET["model"] != NULL)
+				{
+					$assets = $db->get_results("SELECT * FROM assets WHERE strDescription = '" . $_GET["model"] . "' ORDER BY intID ASC LIMIT 100");
+				}
 
 				
 				?>
@@ -88,7 +94,7 @@ include "includes/db_connection.php";
 						echo "<td><div align='center'> " . date("M y",strtotime($asset->dateAdded)) . " </div> </td>";
 						
 						// Display the model number and brand name
-						echo " <td> <div align='center'> " . $asset->strDescription;
+						echo " <td> <div align='center'> <a href='show_assets.php?model=" . $asset->strDescription . "'>" . $asset->strDescription . "</a>";
 											
 						// Display the brand name logo
 						echo "<br><img src='images/logos/" . $asset->strBrand . ".jpg' border=0></div> </td>  ";
