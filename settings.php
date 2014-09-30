@@ -20,7 +20,7 @@ include "includes/db_connection.php";
                 <p>&nbsp;</p>
                 <table width="400" border="0" cellspacing="20">
                 <tr>
-                    <td align="center"><p><a href="settings_users.php"><img src="images/icons/add_user.png" width="64" height="64" border="0"></a><br>Users</p></td>
+                    <td align="center"><a href="settings_users.php"><img src="images/icons/add_user.png" width="64" height="64" border="0"></a><br>Users</td>
                     <td align="center"><a href="settings_computers.php"><img src="images/icons/add-computer.png" width="64" height="64" border="0"></a><br>Computers</td>
 				</tr>
                   <tr>
