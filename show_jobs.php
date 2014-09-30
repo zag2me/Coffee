@@ -18,8 +18,7 @@ require 'includes/class.smtp.php';
         <table width="900" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td align="center">
-                <p>Welcome to Coffee - The simple ICT Support System</p><br>
-				<p><strong>Support Tickets</strong></p>
+				<p><h2>Support Tickets</h2></p>
 				<p><a href="new_job.php"><img src="images/icons/add-ticket.png" width="64" height="60" border="0"></a><br></p>
 				<?php
 				

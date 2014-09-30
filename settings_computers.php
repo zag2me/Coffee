@@ -15,10 +15,9 @@ include "includes/db_connection.php";
     <td valign="top" align="center">
         <table width="900" border="0" cellspacing="0" cellpadding="0">
           <tr> 
-            <td valign="top" align="center"> <p><br>
-                        <font face="Arial, Helvetica, sans-serif"><strong><em>Manage Computers</em></strong></font></p>
-                      <div align="center"> 
-                        <p> </p>
+            <td valign="top" align="center"> 
+            			<p><h2>Manage Computers</h2></p>
+                        <div align="center"> 
                         <p><a href="new_computer.php"><img src="images/icons/add-computer.png" border="0"><br></font><font size="2" face="Arial, Helvetica, sans-serif">Add</font></a>
                         </p>
                         

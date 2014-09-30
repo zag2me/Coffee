@@ -16,9 +16,6 @@ include "includes/db_connection.php";
         <table width="800" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td align="center">
-                <p>
-				Welcome to Coffee - The simple ICT Support System
-				</strong></p>
                 <p><em><strong><font face="Arial, Helvetica, sans-serif">Add a computer</font></strong></em></p>
                 <form name="form1" method="post" action="settings_computers.php">
                   <table width="572" border="0" cellspacing="0" cellpadding="0">

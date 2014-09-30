@@ -16,7 +16,7 @@ include "includes/db_connection.php";
         <table width="600" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td><div align="center"> 
-                <p><em><strong><font face="Arial, Helvetica, sans-serif"><p><br>Add ICT  support request</font></strong></em></p>
+                <p><h2><br>Add ICT  support request</h2></p>
                 <form name="form1" method="post" action="submit_job.php">
                   <table width="450" border="0" cellspacing="0" cellpadding="0">
                     <tr> 

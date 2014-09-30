@@ -16,9 +16,7 @@ include "includes/db_connection.php";
         <table width="900" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td align="center">
-                <p>
-				Welcome to Coffee - The simple ICT Support System
-				</strong></p><br>
+            <p><h2>General Settings</h2></p>
 				<p><br>
 				<?php
 					// Grab the settings		

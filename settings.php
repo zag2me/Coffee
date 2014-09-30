@@ -16,7 +16,7 @@ include "includes/db_connection.php";
         <table width="600" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td><div align="center"> 
-                <p>Settings</p>
+                <p><h2>Settings</h2></p>
                 <p>&nbsp;</p>
                 <table width="400" border="0" cellspacing="20">
                 <tr>

@@ -17,7 +17,7 @@ include "includes/db_connection.php";
           <tr> 
             <td align="center">
                 <p>
-				Welcome to Coffee - The simple ICT Support System
+				<h2>Welcome to Coffee - The simple ICT Support System</h2>
 				</strong></p><br>
 				<p><br>
 				<?php

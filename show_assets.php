@@ -16,8 +16,7 @@ include "includes/db_connection.php";
         <table width="900" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td align="center">
-                <p>Welcome to Coffee - The simple ICT Support System</p><br>
-				<p><strong>Asset List</strong></p>
+              	<p><h2>Asset List</h2></p>
 				<?php
 			
 				// Delete asset if requested

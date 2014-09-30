@@ -16,10 +16,7 @@ include "includes/db_connection.php";
         <table width="800" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td align="center">
-                <p>
-				Welcome to Coffee - The simple ICT Support System
-				</strong></p><br>
-				<font face="Arial, Helvetica, sans-serif"><strong><em>Manage Users</em></strong></font></p>
+				<p><h2>Manage Users</h2></p>
 				<p><a href="new_user.php"><img src="images/icons/add_user.png" border="0"><br></font><font size="2" face="Arial, Helvetica, sans-serif">Add</font></a><br>
 				<?php
 

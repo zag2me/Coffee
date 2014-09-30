@@ -16,8 +16,7 @@ include "includes/db_connection.php";
         <table width="900" border="0" cellspacing="0" cellpadding="0">
           <tr> 
             <td align="center">
-                <p>Welcome to Coffee - The simple ICT Support System</p><br>
-				<p><strong>Add and asset</strong></p>
+    				<p><h2>Add BYOD</h2></p>
 				
                 <form name="form1" method="post" action="show_byod.php">
                   <table width="450" border="0" cellspacing="0" cellpadding="0">
