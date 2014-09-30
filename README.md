@@ -12,3 +12,10 @@ Coffee ICT Support System Install
 5) Load up http://localhost/
 
 6) Go to Settings >> Users and add yourself as an Admin User
+
+Screenshots
+===========
+
+![Main Page](https://raw.githubusercontent.com/zag2me/Coffee/3025512b47859be77d92328f5d3cd4fc282a063d/install/screenshot001.png "Main Page")
+
+![Ticket Page](https://raw.githubusercontent.com/zag2me/Coffee/3025512b47859be77d92328f5d3cd4fc282a063d/install/screenshot003.png "Ticket Page")
