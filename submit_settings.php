@@ -23,7 +23,7 @@ include "includes/db_connection.php";
 				<?php
 				
 				// Update the database
-				$db->query("UPDATE settings SET strSmtpUser='" . $_POST["smtp_user"] . "', strSmtpPassword='" . $_POST["smtp_password"] . "' WHERE intID = 1");	
+				$db->query("UPDATE settings SET strSmtpUser='" . $_POST["smtp_user"] . "', strSmtpEmail='" . $_POST["smtp_user"] . "', strSmtpPassword='" . $_POST["smtp_password"] . "' WHERE intID = 1");	
 				echo "Settings Updated";
 				
 				?>
