@@ -5,6 +5,8 @@ include 'includes/functions.php';
 include "includes/ez_sql_core.php";
 include "includes/ez_sql_mysql.php";
 include "includes/db_connection.php";
+require 'includes/class.phpmailer.php';
+require 'includes/class.smtp.php';
 ?>
 
 <table width="1000" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -24,7 +26,45 @@ include "includes/db_connection.php";
 				// Update Job from Open to Closed and 100% progress
 				if ($_GET["open_job"] == 1 AND $_GET["id"] != NULL AND $_SESSION['user'] != NULL )
 				{
+					// Update the ticket
 					$db->query("UPDATE tickets SET intProgress = 100, intOpenJob = 0, strUserComplete = '" . $_SESSION['user'] . "' WHERE intID = " . $_GET["id"]);
+					
+					// Grab the ticket details
+					$completeJob = $db->get_row("SELECT * FROM tickets WHERE intID = " . $_GET["id"]);
+					
+					// Grab the email settings
+					$settingsEmail = $db->get_row("SELECT * FROM settings WHERE intID = " . $_GET["id"]);
+
+					// Send a completion email
+					$mail = new PHPMailer;
+					$mail->isSMTP();                                        // Set mailer to use SMTP
+					$mail->Host = $settingsEmail->strSmtpServer;            // Specify main and backup SMTP servers
+					$mail->SMTPAuth = true;                                 // Enable SMTP authentication
+					$mail->Username = $settingsEmail->strSmtpUser;          // SMTP username
+					$mail->Password = $settingsEmail->strSmtpPassword;      // SMTP password
+					$mail->SMTPSecure = 'tls';                              // Enable TLS encryption, `ssl` also accepted
+					$mail->Port = $settingsEmail->intSmtpPort;              // TCP port to connect to
+					$mail->From = $settingsEmail->strSmtpEmail;				// From email
+					$mail->FromName = 'ICT Support';						// From name
+					$mail->addAddress($completeJob->strRequesterEmail);     // Add a recipient
+					$mail->isHTML(true);                                    // Set email format to HTML
+					$mail->Subject = 'ICT Support Request Complete';		// Email subject
+					$mail->Body    .= '<font face="Arial, Helvetica, sans-serif" color="#0000A0"><strong>ICT Support</strong></font><br>';
+					$mail->Body    .= '<font face="Arial, Helvetica, sans-serif" color="#504A4B"><p>IMPORTANT: This is an automated Email, please do not respond';
+					$mail->Body    .= '<p> Your ICT Job has been Updated... <br><br> Job: <b>'. $completeJob->strTicketDescription .'</b>';
+					$mail->Body    .= '<br> Status: </font><b><font face="Arial, Helvetica, sans-serif" color=#008000>COMPLETE</b></font>';
+
+					// Check to see if the mail was sent
+					if(!$mail->send()) 
+					{
+    					echo 'Message could not be sent.';
+    					echo 'Mailer Error: ' . $mail->ErrorInfo;
+					} 
+					else 
+					{
+    					echo 'Email message has been sent';
+					}
+
 				}
 	
 				// Update Job from Closed to Open and 75% progress
