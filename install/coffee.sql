@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`intID`, `strSmtpServer`, `strSmtpUser`, `strSmtpPassword`, `intSmtpPort`, `strSmtpEmail`, `intSmtpSSL`, `intTicketsMax`, `intUsersMax`) VALUES
-(1, 'smtp.google.com', 'user@gmail.com', 'password', '465', 'user@gmail.com', '1', 100, 100);
+(1, 'smtp.google.com', 'user@gmail.com', 'password', '587', 'user@gmail.com', '0', 100, 100);
 
 -- --------------------------------------------------------
 
