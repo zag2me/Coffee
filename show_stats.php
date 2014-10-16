@@ -21,7 +21,7 @@ include "includes/db_connection.php";
 				<?php
 
 				$counttotal = 0;
-				$tickets = $db->get_results("SELECT strRequesterName, COUNT( strRequesterName ) AS counttotal FROM tickets GROUP BY strRequesterName ORDER BY COUNT( strRequesterName ) DESC LIMIT 10");
+				$tickets = $db->get_results("SELECT strRequesterName, COUNT( strRequesterName ) AS counttotal FROM tickets GROUP BY strRequesterName ORDER BY COUNT( strRequesterName ) DESC LIMIT 150");
 				
 				?>
 				 </p>
