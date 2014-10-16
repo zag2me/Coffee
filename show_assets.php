@@ -26,27 +26,27 @@ include "includes/db_connection.php";
 				}
 
 				// Create an array of all the assets
-				$assets = $db->get_results("SELECT * FROM assets ORDER BY intID ASC");
+				$assets = $db->get_results("SELECT * FROM assets ORDER BY intID DESC");
 				$count = $db->get_var("SELECT count(*) FROM assets");
 
 				// Create a new array if a filter is requested
 				if ($_GET["serial"] != NULL)
 				{
-					$assets = $db->get_results("SELECT * FROM assets WHERE strSerial = '" . $_GET["serial"] . "' ORDER BY intID ASC LIMIT 100");
+					$assets = $db->get_results("SELECT * FROM assets WHERE strSerial = '" . $_GET["serial"] . "' ORDER BY intID DESC LIMIT 100");
 					$count = $db->get_var("SELECT count(*) FROM assets WHERE strSerial = '" . $_GET["serial"] . "'");
 				}
 				
 				// Create a new array if a filter is requested
 				if ($_GET["model"] != NULL)
 				{
-					$assets = $db->get_results("SELECT * FROM assets WHERE strDescription = '" . $_GET["model"] . "' ORDER BY intID ASC LIMIT 100");
+					$assets = $db->get_results("SELECT * FROM assets WHERE strDescription = '" . $_GET["model"] . "' ORDER BY intID DESC LIMIT 100");
 					$count = $db->get_var("SELECT count(*) FROM assets WHERE strDescription = '" . $_GET["model"] . "'");
 				}
 
 				// Create a new array if a filter is requested
 				if ($_GET["person"] != NULL)
 				{
-					$assets = $db->get_results("SELECT * FROM assets WHERE strPerson = '" . $_GET["person"] . "' ORDER BY intID ASC LIMIT 100");
+					$assets = $db->get_results("SELECT * FROM assets WHERE strPerson = '" . $_GET["person"] . "' ORDER BY intID DESC LIMIT 100");
 					$count = $db->get_var("SELECT count(*) FROM assets WHERE strPerson = '" . $_GET["person"]."'");
 				}
 
@@ -105,10 +105,14 @@ include "includes/db_connection.php";
 						// Display the model number and brand name
 						echo " <td> <div align='center'> <a href='show_assets.php?model=" . $asset->strDescription . "'>" . $asset->strDescription . "</a>";
 											
-						// Display the brand name logo
-						echo "<br><img src='images/logos/" . $asset->strBrand . ".jpg' border=0></div> </td>  ";
-						
+						// Display the brand name logo if brand is populated
+						if ($asset->strBrand != NULL)
+						{
+							echo "<br><img src='images/logos/" . $asset->strBrand . ".jpg' border=0>  ";
+						}
+
 						// Display the disk type
+						echo "</div> </td>";
 						echo "<td><div align='center'><img src='images/icons/" . $asset->strDisk . ".png' border=0> </div> </td>";
 						
 						// Display the os type
