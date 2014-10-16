@@ -30,8 +30,8 @@ include "includes/db_connection.php";
 				echo "<img src='images/icons/give_computer.png'><br><p><table width='400' border='0'><tr>";
 				
 				// Write the total and open jobs to screen  
-				echo "<tr><td><center><img src='images/icons/spanner.png'><br><b><a href='show_jobs.php?show_open=0'>Total Jobs:</a>  </b>" . $total_jobs_all . "</center><br></td>";
-				echo "<td><center><img src='images/icons/job_open.png'><br><b><a href='show_jobs.php?show_open=1'>Open Jobs:</a> </b>" . $total_jobs_open . "</center><br></td></tr>";
+				echo "<tr><td><center><h2><img src='images/icons/spanner.png'><br><b><a href='show_jobs.php?show_open=0'>Total Jobs:</a>  </b>" . $total_jobs_all . "</h2></center><br></td>";
+				echo "<td><center><h2><img src='images/icons/job_open.png'><br><b><a href='show_jobs.php?show_open=1'>Open Jobs:</a> </b>" . $total_jobs_open . "</h2></center><br></td></tr>";
 				echo "</table>";
 				?>
 				
