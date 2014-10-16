@@ -33,8 +33,8 @@ include "includes/db_connection.php";
 				
 				// Write the total and open jobs to screen
 				echo "<table width='400' border='0'><tr>";
-				echo "<tr><td><center><h3><img src='images/icons/spanner.png'><br><b><a href='show_jobs.php?show_open=0'>Total Jobs:</a>  </b>" . number_format($total_jobs_all) . "</h3></center><br></td>";
-				echo "<td><center><h3><img src='images/icons/job_open.png'><br><b><a href='show_jobs.php?show_open=1'>Open Jobs:</a> </b>" . number_format($total_jobs_open) . "</h3></center><br></td></tr>";
+				echo "<tr><td><center><img src='images/icons/spanner.png'><br><b><a href='show_jobs.php?show_open=0'>Total Jobs:</a>  </b>" . number_format($total_jobs_all) . "</center><br></td>";
+				echo "<td><center><img src='images/icons/job_open.png'><br><b><a href='show_jobs.php?show_open=1'>Open Jobs:</a> </b>" . number_format($total_jobs_open) . "</center><br></td></tr>";
 				echo "</table>";
 
 				// Write the total jobs for each ICT technician
@@ -44,7 +44,7 @@ include "includes/db_connection.php";
 							foreach ($admin_users as $admin_user)
 							{
 								$total_jobs_admin = $db->get_var("SELECT Count(*) FROM tickets WHERE strUserComplete = '" . $admin_user->strEmail . "'");
-								echo "<td><center><h3><img src='images/avatars/" . $admin_user->strName . ".jpg'><br><b><a href='show_jobs.php?show_open=0'></a>  </b>" . $admin_user->strName . ": " . number_format($total_jobs_admin) . "</h3></center><br></td>";
+								echo "<td><br><center><img src='images/avatars/" . $admin_user->strName . ".jpg'><br><br><a href='show_jobs.php?show_open=0'></a> <b>" . $admin_user->strName . ":</b> " . number_format($total_jobs_admin) . "</center><br></td>";
 							}
 						}
 				echo "</tr></table>";
