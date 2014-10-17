@@ -44,7 +44,14 @@ include "includes/db_connection.php";
 							foreach ($admin_users as $admin_user)
 							{
 								$total_jobs_admin = $db->get_var("SELECT Count(*) FROM tickets WHERE strUserComplete = '" . $admin_user->strEmail . "'");
-								echo "<td><br><center><img src='images/avatars/" . $admin_user->strName . ".jpg'><br><br><a href='show_jobs.php?show_open=0'></a> <b>" . $admin_user->strName . ":</b> " . number_format($total_jobs_admin) . "</center><br></td>";
+								$total_jobs_admin_year = $db->get_var("SELECT count(*) FROM tickets WHERE strUserComplete = '" . $admin_user->strEmail . "' AND year(dateSubmitted) = " . date("Y") . "");
+								$total_jobs_admin_last_year = $db->get_var("SELECT count(*) FROM tickets WHERE strUserComplete = '" . $admin_user->strEmail . "' AND year(dateSubmitted) = " . date("Y",strtotime("-1 year")) . "");
+								$total_jobs_admin_2_years_ago = $db->get_var("SELECT count(*) FROM tickets WHERE strUserComplete = '" . $admin_user->strEmail . "' AND year(dateSubmitted) = " . date("Y",strtotime("-2 year")) . "");
+								echo "<td><br><center><img src='images/avatars/" . $admin_user->strName . ".jpg'><br><br><a href='show_jobs.php?show_open=0'></a> <b>" . $admin_user->strName . ":</b> " . number_format($total_jobs_admin) . "<br><br>";
+								echo "<b>This Year (" . date("Y") . "):</b> " . number_format($total_jobs_admin_year) . "<br>";
+								echo "<b>Last Year (" . date("Y",strtotime("-1 year")) . "):</b> " . number_format($total_jobs_admin_last_year) . "<br>";
+								echo "<b>Previous Year (" . date("Y",strtotime("-2 year")) . "):</b> " . number_format($total_jobs_admin_2_years_ago) . "<br>";
+								echo "</center></td>";
 							}
 						}
 				echo "</tr></table>";
