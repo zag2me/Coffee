@@ -28,7 +28,7 @@ include "includes/db_connection.php";
 				// Check to see if the job description is passed then enter it into the database
 				if ($_POST["desc"] != NULL AND $user->strEmail != NULL)
 				{
-					$db->query("INSERT INTO tickets (strRequesterEmail, strRequesterName, dateSubmitted, strTicketDescription) VALUES ('" . $user->strEmail . "', '" . $user->strName . "',  NOW(), '" . $_POST["desc"] . "')");
+					$db->query("INSERT INTO tickets (strRequesterEmail, strRequesterName, dateSubmitted, strTicketDescription) VALUES ('" . $user->strEmail . "', '" . $user->strName . "',  NOW(), '" . addslashes($_POST["desc"]) . "')");
 					echo "<div align='center'><font color='#CCCCCC'>New Job Added. Redirecting in 5 seconds...</font></div>";
 				}
 				else
