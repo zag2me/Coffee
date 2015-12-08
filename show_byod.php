@@ -25,21 +25,38 @@ include "includes/db_connection.php";
 					$db->query("DELETE FROM byod WHERE intID =" . $_GET["delete"]);
 				}
 
-				// Insert new BYOD user
+				// Insert new BYOD device
 				if ($_POST["model"] != NULL AND $_POST["name"] AND $_POST["username"] != NULL AND $_POST["wireless"] != NULL)
 				{
+					// Lets replace any hyphens in the MAC address with colons
+					$_POST["wireless"] = str_replace("-",":",$_POST["wireless"]);
+					
 					// Insert new asset into database
 					$db->query("INSERT INTO byod (strPerson, strUsername, strMAC, strModel, dateAdded) VALUES ('" . $_POST["name"] . "', '" . $_POST["username"] . "', '" . $_POST["wireless"] . "', '" . $_POST["model"] . "', '" . $_POST["dateadded"] . "')");
 					echo "<div align='center'>New BYOD user Added....</div>";
 				}
 				
-				// Create an array of all the tickets
+				// Check valid BYOD device
+				if ($_POST["checkmac"] != NULL)
+				{
+					$checkmac = str_replace("-",":",$_POST["checkmac"]);
+					
+					// search for the mac
+					$macyes = $db->get_results("SELECT * FROM byod WHERE strMAC = '$checkmac'");
+					if ($macyes != NULL) {
+						echo "<img src='images/icons/Tick_32.png'> Device is Authorized!";
+					} else {
+						echo "<img src='images/icons/Cross_32.png'> Mac not found!";
+					}
+				}
+				
+				// Create an array of all the BYOD devices
 				$byods = $db->get_results("SELECT * FROM byod ORDER BY intID DESC");
 
 				?>
 				
 				</p>
-                        <p><a href="new_byod.php"><img src="images/icons/user-byod.png" width="64" height="64" border="0"></a> </p> Add<br>
+                        <p><a href="new_byod.php"><img src="images/icons/user-byod.png" width="64" height="64" border="0"></a>  Add<a href="check_byod.php"><img src="images/icons/check-byod.png" width="64" height="64" border="0"></a>  Check<br></p>
                         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
                           <tr bgcolor="#CCCCCC"> 
                             <td><div align="center"><strong>ID</strong></div></td>
@@ -54,7 +71,7 @@ include "includes/db_connection.php";
 					  
 				<?php
 				
-			// Display each support tickets in a table
+			// Display each device in a table
 			if ($byods != NULL)
 			{
 				foreach ($byods as $byod)	
