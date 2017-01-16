@@ -1,6 +1,6 @@
 <?php
 //** Include Header **//
-include 'includes/header.php';
+//include 'includes/header.php';
 include 'includes/functions.php';
 include "includes/ez_sql_core.php";
 include "includes/ez_sql_mysqli.php";
@@ -18,7 +18,7 @@ include "includes/db_connection.php";
             <td align="center">
     				<p><h2>Add BYOD</h2></p>
 				
-                <form name="form1" method="post" action="show_byod.php">
+                <form name="form1" method="post" action="showbyodstudent.php">
                   <table width="450" border="0" cellspacing="0" cellpadding="0">
                     <tr> </tr>
                     <tr>

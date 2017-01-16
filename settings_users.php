@@ -3,7 +3,7 @@
 include 'includes/header.php';
 include 'includes/functions.php';
 include "includes/ez_sql_core.php";
-include "includes/ez_sql_mysql.php";
+include "includes/ez_sql_mysqli.php";
 include "includes/db_connection.php";
 ?>
 
@@ -21,15 +21,13 @@ include "includes/db_connection.php";
 				<?php
 
 				// Check if someone is trying to delete a user
-				if ($_GET["id"] > 0 AND $_SESSION['user'] != NULL)
-				{
+				if (isset($_GET["id"]) AND $_GET["id"] > 0 AND isset($_SESSION['user'])) {
 					// Delete the user
 					$db->query("DELETE FROM Users WHERE intID=" . $_GET["id"]);
 				}
 
 				// Check someone has come from the add user form
-				if ($_POST["name"] != NULL)
-				{
+				if (isset($_POST["name"])) {
 					// Insert new user into database
 					$db->query("INSERT INTO Users (strName, strEmail, strAdmin, strPassword) VALUES ('" . $_POST["name"] . "', '" . $_POST["email"] . "', '" . $_POST["admin"] . "', '" . $_POST["pass"] . "')");
 				}
@@ -81,7 +79,7 @@ include "includes/db_connection.php";
 
 <?php
 //** Include Footer**//
-include '/includes/footer.php';
+include 'includes/footer.php';
 ?>
 
 	<p><br><p><br><p><p><br><p><br><p>

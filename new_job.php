@@ -3,7 +3,7 @@
 include 'includes/header.php';
 include 'includes/functions.php';
 include "includes/ez_sql_core.php";
-include "includes/ez_sql_mysql.php";
+include "includes/ez_sql_mysqli.php";
 include "includes/db_connection.php";
 ?>
 
@@ -62,7 +62,7 @@ include "includes/db_connection.php";
 
 <?php
 //** Include Header **//
-include '/includes/footer.php';
+include 'includes/footer.php';
 ?>
 
 	<p><br><p><br><p><p><br><p><br><p>

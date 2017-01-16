@@ -3,7 +3,7 @@
 include 'includes/header.php';
 include 'includes/functions.php';
 include "includes/ez_sql_core.php";
-include "includes/ez_sql_mysql.php";
+include "includes/ez_sql_mysqli.php";
 include "includes/db_connection.php";
 ?>
 
@@ -26,7 +26,7 @@ include "includes/db_connection.php";
 				$user = $db->get_row("SELECT * FROM users WHERE strEmail = '" . $_POST["name"] . "'");
 				
 				// Check to see if the job description is passed then enter it into the database
-				if ($_POST["desc"] != NULL AND $user->strEmail != NULL)
+				if (isset($_POST["desc"]) AND isset($user->strEmail))
 				{
 					$db->query("INSERT INTO tickets (strRequesterEmail, strRequesterName, dateSubmitted, strTicketDescription) VALUES ('" . $user->strEmail . "', '" . $user->strName . "',  NOW(), '" . addslashes($_POST["desc"]) . "')");
 					echo "<div align='center'><font color='#CCCCCC'>New Job Added. Redirecting in 5 seconds...</font></div>";
@@ -50,7 +50,7 @@ include "includes/db_connection.php";
 
 <?php
 //** Include Header **//
-include '/includes/footer.php';
+include 'includes/footer.php';
 ?>
 
 	<p><br><p><br><p><p><br><p><br><p>

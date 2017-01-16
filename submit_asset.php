@@ -3,7 +3,7 @@
 include 'includes/header.php';
 include 'includes/functions.php';
 include "includes/ez_sql_core.php";
-include "includes/ez_sql_mysql.php";
+include "includes/ez_sql_mysqli.php";
 include "includes/db_connection.php";
 ?>
 
@@ -20,7 +20,7 @@ include "includes/db_connection.php";
 				<?php
 				
 				// Update the database if data sent
- 				if ($_POST["desc"] != NULL AND $_POST["name"] AND $_POST["compname"] != NULL AND $_POST["serialnumber"] != NULL)
+ 				if (isset($_POST["desc"]) AND isset($_POST["name"]) AND isset($_POST["compname"]) AND isset($_POST["serialnumber"]))
 				{
 					// Insert new asset into database
 					$db->query("INSERT INTO assets (strPerson, strType, strDescription, strBrand, strDisk, strOS, strComputerName, strMAC, strDepartment, strSerial, dateAdded) VALUES ('" . $_POST["name"] . "', '" . $_POST["type"] . "', '" . $_POST["desc"] . "', '" . $_POST["brand"] . "', '" . $_POST["disk"] . "', '" . $_POST["os"] . "', '" . $_POST["compname"] . "', '" . $_POST["wireless"] . "', '" . $_POST["department"] . "', '" . $_POST["serialnumber"] . "', '" . $_POST["datepurchased"] . "')");
@@ -41,7 +41,7 @@ include "includes/db_connection.php";
 
 <?php
 //** Include Footer **//
-include '/includes/footer.php';
+include 'includes/footer.php';
 ?>
 
 	<p><br><p><br><p><p><br><p><br><p>

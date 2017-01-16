@@ -3,7 +3,7 @@
 include 'includes/header.php';
 include 'includes/functions.php';
 include "includes/ez_sql_core.php";
-include "includes/ez_sql_mysql.php";
+include "includes/ez_sql_mysqli.php";
 include "includes/db_connection.php";
 ?>
 
@@ -20,13 +20,13 @@ include "includes/db_connection.php";
 				<?php
 			
 				// Delete asset if requested
-				if ($_GET["delete"] > 0 AND $_SESSION['user'] != NULL)
+				if (isset($_GET["delete"]) AND $_GET["delete"] > 0 AND isset($_SESSION['user']))
 				{
 					$db->query("DELETE FROM byod WHERE intID =" . $_GET["delete"]);
 				}
 
 				// Insert new BYOD device
-				if ($_POST["model"] != NULL AND $_POST["name"] AND $_POST["username"] != NULL AND $_POST["wireless"] != NULL)
+				if (isset($_POST["model"]) AND isset($_POST["name"]) AND isset($_POST["username"]) AND isset($_POST["wireless"]))
 				{
 					// Lets replace any hyphens in the MAC address with colons
 					$_POST["wireless"] = str_replace("-",":",$_POST["wireless"]);
@@ -37,7 +37,7 @@ include "includes/db_connection.php";
 				}
 				
 				// Check valid BYOD device
-				if ($_POST["checkmac"] != NULL)
+				if (isset($_POST["checkmac"]))
 				{
 					$checkmac = str_replace("-",":",$_POST["checkmac"]);
 					
@@ -125,7 +125,7 @@ include "includes/db_connection.php";
 
 <?php
 //** Include Footer **//
-include '/includes/footer.php';
+include 'includes/footer.php';
 ?>
 
 	<p><br><p><br><p><p><br><p><br><p>

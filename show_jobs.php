@@ -3,7 +3,7 @@
 include 'includes/header.php';
 include 'includes/functions.php';
 include "includes/ez_sql_core.php";
-include "includes/ez_sql_mysql.php";
+include "includes/ez_sql_mysqli.php";
 include "includes/db_connection.php";
 require 'includes/class.phpmailer.php';
 require 'includes/class.smtp.php';
@@ -23,7 +23,7 @@ require 'includes/class.smtp.php';
 				<?php
 				
 				// Update Job from Open to Closed and 100% progress
-				if ($_GET["open_job"] == 1 AND $_GET["id"] != NULL AND $_SESSION['user'] != NULL )
+				if (isset($_GET["open_job"]) AND $_GET["open_job"] == 1 AND isset($_GET["id"]) AND isset($_SESSION['user']))
 				{
 					// Update the ticket
 					$db->query("UPDATE tickets SET intProgress = 100, intOpenJob = 0, strUserComplete = '" . $_SESSION['user'] . "' WHERE intID = " . $_GET["id"]);
@@ -32,17 +32,18 @@ require 'includes/class.smtp.php';
 					$completeJob = $db->get_row("SELECT * FROM tickets WHERE intID = " . $_GET["id"]);
 					
 					// Grab the email settings
-					$settingsEmail = $db->get_row("SELECT * FROM settings WHERE intID = " . $_GET["id"]);
+					$settingsEmail = $db->get_row("SELECT * FROM settings WHERE intID = 1");
 
 					// Send a completion email
 					$mail = new PHPMailer;
 					$mail->isSMTP();                                        // Set mailer to use SMTP
+					$mail->SMTPDebug = 0;                                   // Set mailer to show debug
 					$mail->Host = $settingsEmail->strSmtpServer;            // Specify main and backup SMTP servers
 					$mail->SMTPAuth = true;                                 // Enable SMTP authentication
 					$mail->Username = $settingsEmail->strSmtpUser;          // SMTP username
 					$mail->Password = $settingsEmail->strSmtpPassword;      // SMTP password
-					$mail->SMTPSecure = 'tls';                              // Enable TLS encryption, `ssl` also accepted
-					$mail->Port = $settingsEmail->intSmtpPort;              // TCP port to connect to
+					$mail->SMTPSecure = 'ssl';                              // Enable TLS encryption, `ssl` also accepted
+					$mail->Port = 465;              // TCP port to connect to
 					$mail->From = $settingsEmail->strSmtpEmail;				// From email
 					$mail->FromName = 'ICT Support';						// From name
 					$mail->addAddress($completeJob->strRequesterEmail);     // Add a recipient
@@ -67,13 +68,13 @@ require 'includes/class.smtp.php';
 				}
 	
 				// Update Job from Closed to Open and 75% progress
-				if ($_GET["open_job"] == 2 AND $_GET["id"] != NULL AND $_SESSION['user'] != NULL)
+				if (isset($_GET["open_job"]) AND $_GET["open_job"] == 2 AND isset($_GET["id"]) AND isset($_SESSION['user']))
 				{
 					$db->query("UPDATE tickets SET intProgress = 75, intOpenJob = 1 WHERE intID = " . $_GET["id"]);
 				}
 				
 				// Update the Last action and date
-				if ($_POST["id"] > 0 AND $_SESSION['user'] != NULL)
+				if (isset($_POST["id"]) AND $_SESSION['user'] != NULL)
 				{
 					// Update the DB
 					$db->query("UPDATE tickets SET strLastAction = '" . addslashes($_POST["action"]) . "' WHERE intID =" . $_POST["id"]);
@@ -81,14 +82,14 @@ require 'includes/class.smtp.php';
 				}
 				
 				// Update the progress percentage of a ticket
-				if ($_GET["percent"] == 1 AND $_GET["id"] != NULL AND $_SESSION['user'] != NULL) { $db->query("UPDATE tickets SET intProgress = 25 WHERE intID =" . $_GET["id"]);}
-				else if ($_GET["percent"] == 25 AND $_GET["id"] != NULL AND $_SESSION['user'] != NULL) { $db->query("UPDATE tickets SET intProgress = 50 WHERE intID =" . $_GET["id"]);}
-				else if ($_GET["percent"] == 50 AND $_GET["id"] != NULL AND $_SESSION['user'] != NULL) { $db->query("UPDATE tickets SET intProgress = 75 WHERE intID =" . $_GET["id"]);}
-				else if ($_GET["percent"] == 75 AND $_GET["id"] != NULL AND $_SESSION['user'] != NULL) { $db->query("UPDATE tickets SET intProgress = 100 WHERE intID =" . $_GET["id"]);}
-				else if ($_GET["percent"] == 100 AND $_GET["id"] != NULL AND $_SESSION['user'] != NULL) { $db->query("UPDATE tickets SET intProgress = 0 WHERE intID =" . $_GET["id"]);}
+				if (isset($_GET["percent"]) AND $_GET["percent"] == 1 AND isset($_GET["id"]) AND isset($_SESSION['user'])) { $db->query("UPDATE tickets SET intProgress = 25 WHERE intID =" . $_GET["id"]);}
+				else if (isset($_GET["percent"]) AND $_GET["percent"] == 25 AND isset($_GET["id"]) AND isset($_SESSION['user'])) { $db->query("UPDATE tickets SET intProgress = 50 WHERE intID =" . $_GET["id"]);}
+				else if (isset($_GET["percent"]) AND $_GET["percent"] == 50 AND isset($_GET["id"]) AND isset($_SESSION['user'])) { $db->query("UPDATE tickets SET intProgress = 75 WHERE intID =" . $_GET["id"]);}
+				else if (isset($_GET["percent"]) AND $_GET["percent"] == 75 AND isset($_GET["id"]) AND isset($_SESSION['user'])) { $db->query("UPDATE tickets SET intProgress = 100 WHERE intID =" . $_GET["id"]);}
+				else if (isset($_GET["percent"]) AND $_GET["percent"] == 100 AND isset($_GET["id"]) AND isset($_SESSION['user'])) { $db->query("UPDATE tickets SET intProgress = 0 WHERE intID =" . $_GET["id"]);}
 				
 				// Delete job if requested
-				if ($_GET["delete"] > 0 AND $_SESSION['user'] != NULL)
+				if (isset($_GET["delete"]) AND $_GET["delete"] > 0 AND isset($_SESSION['user']))
 				{
 					$db->query("DELETE FROM tickets WHERE intID =" . $_GET["delete"]);
 				}
@@ -101,7 +102,7 @@ require 'includes/class.smtp.php';
 				$showopen = 0;
 				
 				// Check if user only wants to see open jobs and set SQL
-				if ($_GET["show_open"] == 1)
+				if (isset($_GET["show_open"]) AND $_GET["show_open"] == 1)
 				{
 					// Only select the Open Jobs
 					$tickets = $db->get_results("SELECT * FROM tickets WHERE intOpenJob = 1 ORDER BY intID DESC LIMIT 100");
@@ -113,8 +114,8 @@ require 'includes/class.smtp.php';
 				<table width="100%" border="0" align="center" cellpadding="0" cellspacing="2">
                           <tr bgcolor="#CCCCCC"> 
                             <td><div align="center"><b>Job ID</b></div></td>
-                            <td><div align="center"><b>Name</b></div></td>
-                            <td><div align="center"><b>Date</b></div></td>
+                            <td><div align="center" style="width:100px"><b>Name</b></div></td>
+                            <td><div align="center" style="width:50px"><b>Date</b></div></td>
                             <td><div align="center"><b>Job Description</b></div></td>
                             <td><div align="center"><b>Progress</b></div></td>
                             <td><div align="center"><b>Status</b></div></td>
@@ -158,22 +159,22 @@ require 'includes/class.smtp.php';
 						
 						if ($ticket->intProgress == 25)
 						{
-							echo "<a href='show_jobs.php?id=" . $ticket->intID . "&percent=25&show_open=" . showopen . "#" . $ticket->intID . "'> <img src='images/percent/small25percent.png' border=0> </a>";
+							echo "<a href='show_jobs.php?id=" . $ticket->intID . "&percent=25&show_open=" . $showopen . "#" . $ticket->intID . "'> <img src='images/percent/small25percent.png' border=0> </a>";
 						}
 						
 						if ($ticket->intProgress == 50) 
 						{
-							echo "<a href='show_jobs.php?id=" . $ticket->intID . "&percent=50&show_open=" . showopen . "#" . $ticket->intID . "'> <img src='images/percent/small50percent.png' border=0> </a>";
+							echo "<a href='show_jobs.php?id=" . $ticket->intID . "&percent=50&show_open=" . $showopen . "#" . $ticket->intID . "'> <img src='images/percent/small50percent.png' border=0> </a>";
 						}
 						
 						if ($ticket->intProgress == 75) 
 						{
-							echo "<a href='show_jobs.php?id=" . $ticket->intID . "&percent=75&show_open=" . showopen . "#" . $ticket->intID . "'> <img src='images/percent/small75percent.png' border=0> </a>";
+							echo "<a href='show_jobs.php?id=" . $ticket->intID . "&percent=75&show_open=" . $showopen . "#" . $ticket->intID . "'> <img src='images/percent/small75percent.png' border=0> </a>";
 						}
 						
 						if ($ticket->intProgress == 100) 
 						{
-							echo" <a href='show_jobs.php?id=" . $ticket->intID . "&percent=100&show_open=" . showopen . "#" . $ticket->intID . "'> <img src='images/percent/small100percent.png' border=0> </a>";
+							echo" <a href='show_jobs.php?id=" . $ticket->intID . "&percent=100&show_open=" . $showopen . "#" . $ticket->intID . "'> <img src='images/percent/small100percent.png' border=0> </a>";
 						}
 						
 						// Display icon if job is open
@@ -214,8 +215,8 @@ require 'includes/class.smtp.php';
     <td colspan="2">
 
 <?php
-//** Include Header **//
-include '/includes/footer.php';
+
+include 'includes/footer.php';
 ?>
 
 	<p><br><p><br><p><p><br><p><br><p>

@@ -3,7 +3,7 @@
 include 'includes/header.php';
 include 'includes/functions.php';
 include "includes/ez_sql_core.php";
-include "includes/ez_sql_mysql.php";
+include "includes/ez_sql_mysqli.php";
 include "includes/db_connection.php";
 ?>
 
@@ -23,14 +23,14 @@ include "includes/db_connection.php";
                         
 						<?php
 						// Check if someone is trying to delete a user
-						if ($_GET["id"] > 0 AND $_SESSION['user'] != NULL)
+						if (isset($_GET["id"]) AND isset($_GET["id"]) > 0 AND isset($_SESSION['user']))
 						{
 							// Delete the computer
 							$db->query("DELETE FROM computers WHERE intID=" . $_GET["id"]);
 						}
 						
 						// Check someone has come from the add user form
-						if ($_POST["brand"] != NULL AND $_POST["model"] != NULL AND $_POST["type"] != NULL)
+						if (isset($_POST["brand"]) AND isset($_POST["model"]) AND isset($_POST["type"]))
 						{
 							// Insert new user into database
 							$db->query("INSERT INTO Computers (strComputerBrand, strComputerModel, strComputerType, strComputerCost) VALUES ('" . $_POST["brand"] . "', '" . addslashes($_POST["model"]) . "', '" . $_POST["type"] . "', '" . $_POST["cost"] . "')");
@@ -82,7 +82,7 @@ include "includes/db_connection.php";
 
 <?php
 //** Include Footer **//
-include '/includes/footer.php';
+include 'includes/footer.php';
 ?>
 
 	<p><br><p><br><p><p><br><p><br><p>
