@@ -9,9 +9,9 @@
 <div id="header-wrap" style="text-align:center">
 	<div id="header-container">
 		<div id="header"><center>
-			<h1><a href='index.php'><img src="images/template/header-coffee.png" border="0"/></a></h1>
+			<h1><a href='index2.php'><img src="images/template/header-coffee.png" border="0"/></a></h1>
 			<ul>
-		    <li><a href="index.php">Home</a> | </li>
+		    <li><a href="index2.php">Home</a> | </li>
 			<li><a href="show_jobs.php">Jobs </a> | </li>		
 			<li><a href="show_stats.php">Stats</a> | </li>
 			<li><a href="settings.php">Settings</a></li>
